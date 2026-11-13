@@ -1,0 +1,122 @@
+# Netlify settings for the Accountify site (publish this folder as-is, no build step)
+[build]
+  publish = "."
+
+# Old WordPress URLs -> new pages (301 keeps search rankings and old links working)
+[[redirects]]
+  from = "/about/*"
+  to = "/about.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/about-2/*"
+  to = "/about.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/contact/*"
+  to = "/contact.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/faqs/*"
+  to = "/faqs.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/industries-we-serve/*"
+  to = "/industries.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/bookkeeping/*"
+  to = "/bookkeeping.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/service/bookkeeping/*"
+  to = "/bookkeeping.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/catch-up-clean-up-bookkeeping/*"
+  to = "/catch-up-clean-up-bookkeeping.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/service/catch-up-clean-up-bookkeeping/*"
+  to = "/catch-up-clean-up-bookkeeping.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/accounting-financial-reporting/*"
+  to = "/accounting-financial-reporting.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/service/accounting-financial-reporting/*"
+  to = "/accounting-financial-reporting.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/payroll-management/*"
+  to = "/payroll-management.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/service/payroll-management/*"
+  to = "/payroll-management.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/our-virtual-cfo-service-offerings/*"
+  to = "/virtual-cfo.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/service/virtual-cfo-services/*"
+  to = "/virtual-cfo.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/budgeting-and-forecasting/*"
+  to = "/budgeting-and-forecasting.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/terms-conditions/*"
+  to = "/terms-and-conditions.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/privacy-policy/*"
+  to = "/privacy-policy.html"
+  status = 301
+  force = true
+# Pages that no longer exist (shop, cart, demo blog) go to the home page
+[[redirects]]
+  from = "/shop/*"
+  to = "/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/cart/*"
+  to = "/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/blog-grid/*"
+  to = "/"
+  status = 301
+  force = true
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Frame-Options = "SAMEORIGIN"
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
