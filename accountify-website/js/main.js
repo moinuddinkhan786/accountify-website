@@ -106,19 +106,43 @@ const io = new IntersectionObserver((entries) => {
     }
   });
 
-  // Submit the newsletter in the background (Netlify Forms).
+  // Submit the newsletter to FormSubmit and keep the existing popup confirmation.
   const form = pop.querySelector("form");
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const btn = form.querySelector("button[type=submit]");
+    if (btn.disabled) return;
+    const label = btn.textContent;
+    const oldNote = form.querySelector(".form__status");
+    if (oldNote) oldNote.remove();
     btn.disabled = true; btn.textContent = "Signing you up…";
-    sendForm(form)
-      .then(() => { form.hidden = true; pop.querySelector(".nl__done").hidden = false; remember(); })
-      .catch(() => {
-        btn.disabled = false; btn.textContent = "Sign me up";
-        emailFallback(form, "Newsletter sign-up", "Please add me to the Accountify newsletter.");
-        showNote(form, "Our sign-up service isn't connected here, so your email app has opened with your details. Just press send.");
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 20000);
+
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/frameloft.marketing@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+        signal: controller.signal
       });
+      const result = await response.json();
+      if (!response.ok || (result?.success !== true && result?.success !== "true")) {
+        throw new Error("Newsletter submission was not confirmed.");
+      }
+      form.hidden = true;
+      pop.querySelector(".nl__done").hidden = false;
+      remember();
+    } catch (error) {
+      showNote(form, "We couldn't confirm your sign-up. Please try again.");
+    } finally {
+      clearTimeout(timeout);
+      btn.disabled = false;
+      btn.textContent = label;
+    }
   });
 
   // Show once after a short delay, unless the visitor closed it in the last 7 days
