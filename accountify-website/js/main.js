@@ -106,7 +106,7 @@ const io = new IntersectionObserver((entries) => {
     }
   });
 
-  // Submit in the background (Netlify Forms) and show a thank-you inside the popup
+  // Submit the newsletter in the background (Netlify Forms).
   const form = pop.querySelector("form");
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -125,9 +125,9 @@ const io = new IntersectionObserver((entries) => {
   if (!recentlyDismissed()) setTimeout(open, 4000);
 })();
 
-/* ---------- Forms: Netlify Forms, with an email fallback ---------- */
-// Netlify accepts form posts at "/". Anywhere else (a local preview, another host) the post fails,
-// so we open the visitor's email app with their details filled in instead of losing the message.
+/* ---------- Newsletter: existing Netlify Forms helpers ---------- */
+// These helpers are used by the newsletter popup above.
+// The contact form uses its own HTML action to send directly to FormSubmit.
 function sendForm(form) {
   const body = new URLSearchParams(new FormData(form)).toString();
   return fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body })
@@ -147,19 +147,7 @@ function showNote(form, text) {
   note.textContent = text;
 }
 
-const contactForm = document.querySelector("form[name=contact]");
-if (contactForm) {
-  contactForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const btn = contactForm.querySelector("button[type=submit]");
-    const label = btn.textContent;
-    btn.disabled = true; btn.textContent = "Sending…";
-    sendForm(contactForm)
-      .then(() => { location.href = "thank-you.html"; })
-      .catch(() => {
-        btn.disabled = false; btn.textContent = label;
-        emailFallback(contactForm, "Free consultation request", "Hello Accountify, I'd like to book a free consultation.");
-        showNote(contactForm, "Our online form isn't connected here, so your email app has opened with your details filled in. Just press send, or call (240) 620-4627.");
-      });
-  });
-}
+/* ---------- Contact form ---------- */
+// No JavaScript submit handler is needed here.
+// contact.html POSTs to FormSubmit, which handles verification and the
+// configured thank-you redirect. Do not intercept this form with sendForm().

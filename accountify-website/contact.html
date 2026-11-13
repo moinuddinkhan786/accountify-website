@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
-  
+
   <!-- Meta Pixel Code -->
   <script> !function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments) }; if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s) }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js'); fbq('init', '1103779672471200'); fbq('track', 'PageView'); </script>
   <noscript><img height="1" width="1" style="display:none"
@@ -78,9 +78,23 @@
             <li><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span><div><strong>Office</strong><a href="https://maps.app.goo.gl/KETuRyJF1F6jwHa96" target="_blank" rel="noopener">Bethesda, Maryland 20817</a></div></li>
           </ul>
         </div>
-        <form class="form" name="contact" method="POST" action="thank-you.html" data-netlify="true" netlify-honeypot="company-website">
-          <input type="hidden" name="form-name" value="contact">
-          <p hidden><label>Leave this empty <input name="company-website"></label></p>
+        <form
+          class="form"
+          name="contact"
+          method="POST"
+          action="https://formsubmit.co/frameloft.marketing@gmail.com"
+        >
+          <input type="hidden" name="_subject" value="New Consultation Request | Accountify">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_next" value="https://accountifyllc.com/thank-you.html">
+
+          <!-- Spam trap: real visitors should leave this field empty. -->
+          <div style="display:none">
+            <label>Leave this empty
+              <input type="text" name="_honey" tabindex="-1" autocomplete="off">
+            </label>
+          </div>
+
           <div class="form__row">
             <label>Full name<input name="name" required autocomplete="name"></label>
             <label>Business name<input name="business" required autocomplete="organization"></label>
@@ -137,9 +151,8 @@
     </div>
   </footer>
 
+  <script src="js/main.js?v=contact-formsubmit-20261113"></script>
 
-  <script src="js/main.js"></script>
-  
   <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-PM8BMCFF"></script>
   <script> window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); </script>
 </body>
